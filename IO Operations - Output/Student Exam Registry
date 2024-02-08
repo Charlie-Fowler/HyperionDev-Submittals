@@ -1,0 +1,36 @@
+''' Open .txt with writing permissions.
+    request user input to decide how many entries are required
+    loop over each entry and request the ID number.
+    after each ID input, allow a dotted line to allow signing
+'''
+
+print("\n\033[1mExam Registry\033[0m") # initial welcome message
+
+# Open code with UTF8 Formatting in the write function can be exchanged with W+
+# If a 'clean' .txt is required to prevent old data being mixed
+with open('reg_form.txt', 'w', encoding = 'utf-8') as file:
+
+# Request from user how many students are participating in the Exams
+# also check to make sure the inputted value is an integer
+    try:
+        head_count = input('How many students are needing to register for examinations?\n ')
+        if head_count.isnumeric():
+            file.write("Total number of students - " + head_count + "\n")
+# Loop over the value given headcount value, requesting student ID
+# and seperating each input with a defined line
+        for student in range(int(head_count)):
+            student_id = input('Please enter the student ID:\n')
+            file.write(student_id + '\n' + '.'*len(student_id) +'\n')
+
+# Error message if a non numerical value is entered during headcount
+    except ValueError:
+        print('''\n\033[31mError! You have not entered a valid number.
+Please restart the programme.\033[0m''')
+        exit()
+
+# Testing the performance of code
+with open('reg_form.txt', 'r', encoding = 'utf-8') as file:
+    test = file.readlines()
+for row in test:
+    print(row, end="")
+# END
